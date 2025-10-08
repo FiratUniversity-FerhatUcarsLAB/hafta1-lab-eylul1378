@@ -1,4 +1,57 @@
-Öğrenci No:
-AD-SOYAD:
+Öğrenci No:250541001
+AD-SOYAD:Nihal Eylül İL
 
-Lütfen seçtiğiniz algoritmaya ait çözümü ve diğer isterleri aşağıya ekleyiniz:
+// Başlangıç: Değişkenleri tanımla
+var liseDiplomasiVarMi = true
+var sinavHazirligiTamamlandiMi = false
+var sinavPuani = 0
+var hedefPuan = 450
+var tercihYapildiMi = false
+var kabulEdildiMi = false
+
+// Üniversiteye gitme süreci başlasın
+print("Üniversiteye gitme süreci başlatılıyor...")
+
+// 1. Lise diploması kontrolü
+if liseDiplomasiVarMi == false then
+    print("Lise diploması yok. Önce mezun olmalısın.")
+    exit
+else
+    print("Lise diploması mevcut. Süreç devam ediyor...")
+
+// 2. Sınav hazırlığı döngüsü
+while sinavHazirligiTamamlandiMi == false do
+    print("Sınav hazırlığı yapılıyor...")
+    // Hazırlık tamamlandıktan sonra değişkeni güncelle
+    sinavHazirligiTamamlandiMi = true
+    print("Sınav hazırlığı tamamlandı.")
+
+// 3. Sınava gir ve puan al
+sinavPuani = 470
+print("Sınavdan alınan puan: " + sinavPuani)
+
+// 4. Puan yeterli mi?
+if sinavPuani >= hedefPuan then
+    print("Puan yeterli. Tercih yapılabilir.")
+    tercihYapildiMi = true
+else
+    print("Puan yetersiz. Tekrar hazırlanmalısın.")
+    exit
+
+// 5. Tercih yapıldı mı?
+if tercihYapildiMi == true then
+    print("Üniversite tercihleri yapıldı.")
+    // Kabul edilme durumu rastgele simüle edilebilir
+    kabulEdildiMi = true
+else
+    print("Tercih yapılmadı. Üniversiteye gidemezsin.")
+    exit
+
+// 6. Kabul durumu
+if kabulEdildiMi == true then
+    print("Tebrikler! Üniversiteye kabul edildin 🎉")
+    print("Üniversiteye gitmeye hazırlan...")
+else
+    print("Maalesef kabul edilmedin. Tekrar denemelisin.")
+
+Bu çalışmada Microsoft Copilot adlı LLM aracından yardım alınmıştır. Üniversiteye gitme sürecini modelleyen bir algoritma için sözde kod yazımı sırasında koşul yapıları (if-else) ve döngülerin nasıl kullanılacağı konusunda destek sağlanmıştır. Copilot tarafından verilen yanıtlar; değişken tanımları, kontrol yapıları ve döngü mantığı şeklinde mantıksal bir sırayla sunulmuştur.
