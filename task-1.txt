@@ -54,6 +54,3 @@ if kabulEdildiMi == true then
 else
     print("Maalesef kabul edilmedin. Tekrar denemelisin.")
 
-Bu çalışmada Microsoft Copilot adlı LLM aracından yardım alınmıştır. Üniversiteye gitme sürecini modelleyen bir algoritma için sözde kod yazımı sırasında koşul  
-yapıları (if-else) ve döngülerin nasıl kullanılacağı konusunda destek sağlanmıştır. Copilot tarafından verilen yanıtlar; değişken tanımları, kontrol yapıları ve 
-döngü mantığı şeklinde mantıksal bir sırayla sunulmuştur.
