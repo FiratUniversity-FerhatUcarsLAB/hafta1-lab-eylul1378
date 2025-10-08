@@ -14,10 +14,10 @@ print("Tic-Tac-Toe stratejik oyun başlatılıyor...")
 // Her turda oyuncunun hamlesi yapılır
 while oyunDevamEdiyor(tahta) do
 
-    // 1. Kazanma hamlesi var mı?
+    // 1. Oyuncu için kazanma hamlesi var mı?
     if kazanmaHamlesiVar(tahta, oyuncu) then
         yapKazanmaHamlesi(tahta, oyuncu)
-        print("Kazandın! 🎉")
+        print("Oyuncu kazandı!")
         break
 
     // 2. Rakip kazanmak üzere mi? Engelle!
@@ -25,22 +25,31 @@ while oyunDevamEdiyor(tahta) do
         engelleRakipHamlesi(tahta, rakip)
         print("Rakip engellendi.")
 
-    // 3. Ortadaki hücre boşsa, al!
+    // 3. Rakibin sonraki hamlesini tahmin et
+    var tahminEdilenRakipHamlesi = tahminEtRakipHamlesi(tahta, rakip)
+
+    // 4. Tahmin edilen rakip hamlesine karşı stratejik hamle yap
+    if tahminEdilenRakipHamlesi != null then
+        var stratejikHamle = karsilikVerHamleye(tahminEdilenRakipHamlesi)
+        yapHamle(tahta, oyuncu, stratejikHamle)
+        print("Tahmine dayalı stratejik hamle yapıldı.")
+
+    // 5. Orta hücre boşsa, al!
     else if tahta[1][1] == " " then
         tahta[1][1] = oyuncu
         print("Orta hücre alındı.")
 
-    // 4. Köşelerden biri boşsa, al!
+    // 6. Köşe hücrelerden biri boşsa, al!
     else if bosKoseVar(tahta) then
         alBosKose(tahta, oyuncu)
         print("Köşe hücresi alındı.")
 
-    // 5. Kenar hücrelerden biri boşsa, al!
+    // 7. Kenar hücrelerden biri boşsa, al!
     else if bosKenarVar(tahta) then
         alBosKenar(tahta, oyuncu)
         print("Kenar hücresi alındı.")
 
-    // Hamle yapıldıktan sonra rakip oynar
+    // 8. Rakip hamlesini yapar (rastgele veya stratejik)
     rakipHamlesiYap(tahta, rakip)
 
 end while
@@ -53,5 +62,6 @@ else if kazananVar(tahta) == rakip then
 else
     print("Oyun bitti: Beraberlik.")
 
-Bu çalışma kapsamında, LLM teknolojisinin sağladığı destekle stratejik karar verme süreçleri modellenmiş ve sözde kod biçiminde sunulmuştur. Yapay zekanın algoritma tasarımında rehberlik etmesi, hem mantıksal 
-akışı hem de kodun açıklanabilirliğini artırmıştır.
+Bu çalışmada, Microsoft tarafından geliştirilen yapay zeka destekli büyük dil modeli olan Copilot kullanılmıştır. Modelden, Tic-Tac-Toe (X-O) oyunu için kazanma 
+stratejisine dayalı bir algoritmanın sözde kod biçiminde oluşturulması talep edilmiştir.
+
