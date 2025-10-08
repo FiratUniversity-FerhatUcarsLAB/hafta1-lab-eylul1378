@@ -1,4 +1,57 @@
-Öğrenci No:
-AD-SOYAD:
+Öğrenci No:250541001
+AD-SOYAD:Nihal Eylül İL
 
-Lütfen seçtiğiniz algoritmaya ait çözümü ve diğer isterleri aşağıya ekleyiniz:
+// Tahta 3x3'lük bir matristir. Her hücre: "X", "O" veya boş (" ") olabilir.
+var tahta[3][3] = boş hücrelerle dolu
+
+// Oyuncu sembolü: "X", rakip: "O"
+var oyuncu = "X"
+var rakip = "O"
+
+// Oyun başlasın
+print("Tic-Tac-Toe stratejik oyun başlatılıyor...")
+
+// Her turda oyuncunun hamlesi yapılır
+while oyunDevamEdiyor(tahta) do
+
+    // 1. Kazanma hamlesi var mı?
+    if kazanmaHamlesiVar(tahta, oyuncu) then
+        yapKazanmaHamlesi(tahta, oyuncu)
+        print("Kazandın! 🎉")
+        break
+
+    // 2. Rakip kazanmak üzere mi? Engelle!
+    else if kazanmaHamlesiVar(tahta, rakip) then
+        engelleRakipHamlesi(tahta, rakip)
+        print("Rakip engellendi.")
+
+    // 3. Ortadaki hücre boşsa, al!
+    else if tahta[1][1] == " " then
+        tahta[1][1] = oyuncu
+        print("Orta hücre alındı.")
+
+    // 4. Köşelerden biri boşsa, al!
+    else if bosKoseVar(tahta) then
+        alBosKose(tahta, oyuncu)
+        print("Köşe hücresi alındı.")
+
+    // 5. Kenar hücrelerden biri boşsa, al!
+    else if bosKenarVar(tahta) then
+        alBosKenar(tahta, oyuncu)
+        print("Kenar hücresi alındı.")
+
+    // Hamle yapıldıktan sonra rakip oynar
+    rakipHamlesiYap(tahta, rakip)
+
+end while
+
+// Oyun sonucu kontrol edilir
+if kazananVar(tahta) == oyuncu then
+    print("Oyun bitti: Sen kazandın!")
+else if kazananVar(tahta) == rakip then
+    print("Oyun bitti: Rakip kazandı.")
+else
+    print("Oyun bitti: Beraberlik.")
+
+Bu çalışma kapsamında, LLM teknolojisinin sağladığı destekle stratejik karar verme süreçleri modellenmiş ve sözde kod biçiminde sunulmuştur. Yapay zekanın algoritma tasarımında rehberlik etmesi, hem mantıksal 
+akışı hem de kodun açıklanabilirliğini artırmıştır.
