@@ -62,6 +62,3 @@ else if kazananVar(tahta) == rakip then
 else
     print("Oyun bitti: Beraberlik.")
 
-Bu çalışmada, Microsoft tarafından geliştirilen yapay zeka destekli büyük dil modeli olan Copilot kullanılmıştır. Modelden, Tic-Tac-Toe (X-O) oyunu için kazanma 
-stratejisine dayalı bir algoritmanın sözde kod biçiminde oluşturulması talep edilmiştir.
-
