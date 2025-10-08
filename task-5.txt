@@ -1,4 +1,47 @@
-Öğrenci No:
-AD-SOYAD:
+Öğrenci No:250541001
+AD-SOYAD:Nihal Eylül İL
 
-Lütfen seçtiğiniz algoritmaya ait çözümü ve diğer isterleri aşağıya ekleyiniz:
+Fonksiyon: ViralOlmaAlgoritmasi(içerik)
+    Eğer içerik duygusal, şaşırtıcı veya eğlenceli değilse:
+        Dön: "Düşük viral potansiyel"
+
+    hedefKitle = BelirleHedefKitle(içerik)
+    uygunPlatformlar = SeçPlatformlar(hedefKitle)
+
+    Zamanlama = EnIyiPaylaşımZamanı(uygunPlatformlar)
+    paylaşım = Paylaş(içerik, uygunPlatformlar, Zamanlama)
+
+    etkileşim = TakipEtkileşim(payılaşım)
+
+    Eğer etkileşim > viralEşik:
+        Dön: "İçerik viral oldu!"
+    Aksi halde:
+        içerik = OptimizeEt(içerik)
+        Dön: ViralOlmaAlgoritmasi(içerik)
+
+Fonksiyon: BelirleHedefKitle(içerik)
+    içerikteki anahtar kelimelere göre yaş, ilgi alanı, bölge analizi yap
+    Dön: hedefKitle
+
+Fonksiyon: SeçPlatformlar(hedefKitle)
+    Eğer hedefKitle gençse:
+        Dön: ["TikTok", "Instagram"]
+    Eğer profesyonel kitleyse:
+        Dön: ["LinkedIn", "X"]
+    Aksi halde:
+        Dön: ["Facebook", "YouTube"]
+
+Fonksiyon: EnIyiPaylaşımZamanı(platformlar)
+    Her platform için en yüksek etkileşim saatlerini analiz et
+    Dön: zamanDilimi
+
+Fonksiyon: TakipEtkileşim(payılaşım)
+    Beğeni, yorum, paylaşım, kaydetme gibi metrikleri topla
+    Dön: etkileşimSkoru
+
+Fonksiyon: OptimizeEt(içerik)
+    Başlık, görsel, etiket, açıklama gibi unsurları yeniden düzenle
+    Dön: yeniİçerik
+
+Bu algoritma, içeriğin duygusal etkisini, hedef kitlesini, doğru platformu ve zamanlamayı dikkate alarak viral olma potansiyelini artırmayı hedefler. Etkileşim 
+yeterli değilse içerik optimize edilerek tekrar denenir — tıpkı gerçek dünyadaki sosyal medya stratejileri gibi!
