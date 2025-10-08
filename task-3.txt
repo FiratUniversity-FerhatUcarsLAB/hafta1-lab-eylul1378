@@ -1,4 +1,39 @@
-Öğrenci No:
-AD-SOYAD:
+Öğrenci No:250541001
+AD-SOYAD:Nihal Eylül İL
 
-Lütfen seçtiğiniz algoritmaya ait çözümü ve diğer isterleri aşağıya ekleyiniz:
+// Başlangıç: Telefon rehberi verisini tanımla
+var rehberListesi = [
+    {"isim": "Zeynep", "numara": "0532..."},
+    {"isim": "Ahmet", "numara": "0505..."},
+    {"isim": "Mehmet", "numara": "0543..."},
+    {"isim": "Ayşe", "numara": "0551..."}
+]
+
+// Sıralama işlemi başlatılıyor
+print("Telefon rehberi alfabetik olarak sıralanıyor...")
+
+// 1. Alfabetik sıralama algoritması (örnek: Bubble Sort)
+for i from 0 to rehberListesi.length - 1 do
+    for j from 0 to rehberListesi.length - i - 2 do
+        if rehberListesi[j].isim > rehberListesi[j+1].isim then
+            // Yer değiştir
+            temp = rehberListesi[j]
+            rehberListesi[j] = rehberListesi[j+1]
+            rehberListesi[j+1] = temp
+        end if
+    end for
+end for
+
+// 2. Sıralanmış rehberi ekrana yazdır
+print("Sıralanmış Telefon Rehberi:")
+for kişi in rehberListesi do
+    print(kişi.isim + " - " + kişi.numara)
+end for
+
+Bu algoritma, Microsoft Copilot adlı büyük dil modeli (LLM) kullanılarak oluşturulmuştur. Modelden, bir telefon rehberini isimlere göre alfabetik olarak sıralayan veri organizasyonu algoritmasının sözde kod biçiminde yazılması talep edilmiştir.
+
+
+rehberListesi.sort(by isim in alfabetik sıra)
+Bu kısa ifade, yerleşik sıralama fonksiyonu olan dillerde (örneğin Python, JavaScript) doğrudan kullanılabilir
+
+
