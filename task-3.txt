@@ -30,9 +30,6 @@ for kişi in rehberListesi do
     print(kişi.isim + " - " + kişi.numara)
 end for
 
-Bu algoritma, Microsoft Copilot adlı büyük dil modeli (LLM) kullanılarak oluşturulmuştur. Modelden, bir telefon rehberini isimlere göre alfabetik olarak sıralayan veri organizasyonu algoritmasının sözde kod biçiminde yazılması talep edilmiştir.
-
-
 rehberListesi.sort(by isim in alfabetik sıra)
 Bu kısa ifade, yerleşik sıralama fonksiyonu olan dillerde (örneğin Python, JavaScript) doğrudan kullanılabilir
 
