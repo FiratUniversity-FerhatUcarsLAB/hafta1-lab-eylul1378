@@ -1,64 +1,86 @@
 Öğrenci No:250541001
 AD-SOYAD:Nihal Eylül İL
 
-// Tahta 3x3'lük bir matristir. Her hücre: "X", "O" veya boş (" ") olabilir.
-var tahta[3][3] = boş hücrelerle dolu
+// =================================================================
+// ANA FONKSİYON: Bilgisayarın sırası geldiğinde en iyi hamleyi bulur.
+// =================================================================
+FONKSİYON BilgisayarHamlesiniBelirle(Tahta, BilgisayarınSembolü):
 
-// Oyuncu sembolü: "X", rakip: "O"
-var oyuncu = "X"
-var rakip = "O"
+  // ---- 1. Öncelik: KAZAN! ----
+  // Eğer tek bir hamle ile kazanabiliyorsam, o hamleyi yap.
+  kazanmaHamlesi = KazanmaHareketiBul(Tahta, BilgisayarınSembolü)
+  EĞER (kazanmaHamlesi != Yok) İSE
+    DÖN kazanmaHamlesi // Düşünmeyi bırak ve kazanma hamlesini oyna.
+  BİTİR EĞER
 
-// Oyun başlasın
-print("Tic-Tac-Toe stratejik oyun başlatılıyor...")
 
-// Her turda oyuncunun hamlesi yapılır
-while oyunDevamEdiyor(tahta) do
+  // ---- 2. Öncelik: ENGELLE! ----
+  // Eğer rakip bir sonraki hamlede kazanabiliyorsa, onu engelle.
+  // Bu, "rakip hamlesini öngörme" adımının en kritik parçasıdır.
+  RakibinSembolü = (BilgisayarınSembolü == 'X') ? 'O' : 'X'
+  engellemeHamlesi = KazanmaHareketiBul(Tahta, RakibinSembolü)
+  EĞER (engellemeHamlesi != Yok) İSE
+    DÖN engellemeHamlesi // Rakibin kazanmasını engellemek için o noktayı oyna.
+  BİTİR EĞER
 
-    // 1. Oyuncu için kazanma hamlesi var mı?
-    if kazanmaHamlesiVar(tahta, oyuncu) then
-        yapKazanmaHamlesi(tahta, oyuncu)
-        print("Oyuncu kazandı!")
-        break
 
-    // 2. Rakip kazanmak üzere mi? Engelle!
-    else if kazanmaHamlesiVar(tahta, rakip) then
-        engelleRakipHamlesi(tahta, rakip)
-        print("Rakip engellendi.")
+  // ---- 3. Öncelik: STRATEJİK KONUMLARI AL! ----
+  // Eğer anlık bir kazanma veya kaybetme durumu yoksa, stratejik olarak en güçlü
+  // pozisyonları almaya çalış.
 
-    // 3. Rakibin sonraki hamlesini tahmin et
-    var tahminEdilenRakipHamlesi = tahminEtRakipHamlesi(tahta, rakip)
+  // 3a: Merkezi al. Merkez (1,1) en stratejik karedir.
+  EĞER (Tahta[1][1] == 'Boş') İSE
+    DÖN (1, 1) // Merkezi koordinatları döndür.
+  BİTİR EĞER
 
-    // 4. Tahmin edilen rakip hamlesine karşı stratejik hamle yap
-    if tahminEdilenRakipHamlesi != null then
-        var stratejikHamle = karsilikVerHamleye(tahminEdilenRakipHamlesi)
-        yapHamle(tahta, oyuncu, stratejikHamle)
-        print("Tahmine dayalı stratejik hamle yapıldı.")
+  // 3b: Rakibin köşesine karşılık zıt köşeyi al. Bu, rakibin çapraz
+  // tehditlerini engeller ve kendi lehimize fırsat yaratır.
+  zıtKose = ZıtKoseBul(Tahta, RakibinSembolü)
+  EĞER (zıtKose != Yok) İSE
+      DÖN zıtKose
+  BİTİR EĞER
+  
+  // 3c: Boş bir köşe al. Köşeler kenarlardan daha değerlidir.
+  bosKose = BosKoseBul(Tahta)
+  EĞER (bosKose != Yok) İSE
+    DÖN bosKose
+  BİTİR EĞER
 
-    // 5. Orta hücre boşsa, al!
-    else if tahta[1][1] == " " then
-        tahta[1][1] = oyuncu
-        print("Orta hücre alındı.")
+  // 3d: Boş bir kenar (orta) al. Diğer tüm seçenekler tükendiğinde oynanır.
+  bosKenar = BosKenarBul(Tahta)
+  EĞER (bosKenar != Yok) İSE
+    DÖN bosKenar
+  BİTİR EĞER
 
-    // 6. Köşe hücrelerden biri boşsa, al!
-    else if bosKoseVar(tahta) then
-        alBosKose(tahta, oyuncu)
-        print("Köşe hücresi alındı.")
+  // Hiçbir hamle kalmadıysa (teorik olarak bu adıma ulaşılmaz)
+  DÖN Yok
 
-    // 7. Kenar hücrelerden biri boşsa, al!
-    else if bosKenarVar(tahta) then
-        alBosKenar(tahta, oyuncu)
-        print("Kenar hücresi alındı.")
+BİTİR FONKSİYON
 
-    // 8. Rakip hamlesini yapar (rastgele veya stratejik)
-    rakipHamlesiYap(tahta, rakip)
 
-end while
+// =================================================================
+// YARDIMCI FONKSİYONLAR
+// =================================================================
 
-// Oyun sonucu kontrol edilir
-if kazananVar(tahta) == oyuncu then
-    print("Oyun bitti: Sen kazandın!")
-else if kazananVar(tahta) == rakip then
-    print("Oyun bitti: Rakip kazandı.")
-else
-    print("Oyun bitti: Beraberlik.")
+// Belirtilen oyuncunun bir sonraki hamlede kazanabileceği bir yer olup olmadığını kontrol eder.
+// Varsa, o hamlenin koordinatlarını döndürür. Yoksa, "Yok" döndürür.
+FONKSİYON KazanmaHareketiBul(Tahta, OyuncuSembolü):
+  // 8 olası kazanma hattını (3 satır, 3 sütun, 2 çapraz) kontrol et.
+  DÖNGÜ (her bir kazanma hattı için):
+    // Eğer hatta bu oyuncunun 2 sembolü ve 1 boş alan varsa:
+    EĞER (HattaIkiAyniVeBirBosVarsa(hat, OyuncuSembolü)) İSE
+      // O boş alanın koordinatlarını bul ve döndür.
+      DÖN bosAlanınKoordinatı
+    BİTİR EĞER
+  BİTİR DÖNGÜ
 
+  // Hiçbir hatta kazanma hamlesi bulunamadı.
+  DÖN Yok
+BİTİR FONKSİYON
+
+// Diğer yardımcı fonksiyonlar (ZıtKoseBul, BosKoseBul, BosKenarBul) benzer şekilde
+// tahtayı tarayarak ilgili boş kareleri bulur ve koordinatlarını döndürür.
+
+Ödevim için, Tic-Tac-Toe oyununda karar verme mantığını ve rakibin hamlelerini öngörerek engelleme stratejisini içeren bir algoritma talep ettim. Gemini, bu talebe 
+yanıt olarak, belirli bir öncelik sırasıyla çalışan bir sözde kod hazırladı. Bu algoritmaya göre bilgisayar; önce kendi kazanma hamlesini arıyor, bulamazsa rakibin 
+kazanma hamlesini engelliyor ve son olarak da merkez gibi stratejik konumları tercih ederek en optimal hamleyi yapıyor.
