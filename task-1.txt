@@ -1,56 +1,91 @@
 Öğrenci No:250541001
 AD-SOYAD:Nihal Eylül İL
 
-// Başlangıç: Değişkenleri tanımla
-var liseDiplomasiVarMi = true
-var sinavHazirligiTamamlandiMi = false
-var sinavPuani = 0
-var hedefPuan = 450
-var tercihYapildiMi = false
-var kabulEdildiMi = false
+BAŞLA
 
-// Üniversiteye gitme süreci başlasın
-print("Üniversiteye gitme süreci başlatılıyor...")
+  // --- 1. Aşama: Hazırlık ve Değişken Tanımlamaları ---
+  TANIMLA yumurtaSayisi = 2                 // Standart omlet için
+  TANIMLA cirpmaSayaci = 0                   // Yumurtaları ne kadar çırptığımızı sayar
+  TANIMLA hedefCirpmaMiktari = 100         // Yumurtaların köpürmesi için gereken minimum çırpma sayısı
+  TANIMLA tavaYeterinceSicakMi = HAYIR
+  TANIMLA omletPistiMi = HAYIR
 
-// 1. Lise diploması kontrolü
-if liseDiplomasiVarMi == false then
-    print("Lise diploması yok. Önce mezun olmalısın.")
-    exit
-else
-    print("Lise diploması mevcut. Süreç devam ediyor...")
+  // Kullanıcı tercihleri (Koşullar için girdi)
+  TANIMLA peynirIsteniyorMu = EVET
+  TANIMLA sucukIsteniyorMu = EVET
+  TANIMLA mantarIsteniyorMu = HAYIR
 
-// 2. Sınav hazırlığı döngüsü
-while sinavHazirligiTamamlandiMi == false do
-    print("Sınav hazırlığı yapılıyor...")
-    // Hazırlık tamamlandıktan sonra değişkeni güncelle
-    sinavHazirligiTamamlandiMi = true
-    print("Sınav hazırlığı tamamlandı.")
 
-// 3. Sınava gir ve puan al
-sinavPuani = 470
-print("Sınavdan alınan puan: " + sinavPuani)
+  // --- 2. Aşama: Malzemeleri Hazırlama ve Karıştırma ---
+  yazdir "Kaseye " + yumurtaSayisi + " adet yumurtayı kır."
+  yazdir "Bir tutam tuz ve karabiber ekle."
+  yazdir "Bir kaşık süt ekle."
 
-// 4. Puan yeterli mi?
-if sinavPuani >= hedefPuan then
-    print("Puan yeterli. Tercih yapılabilir.")
-    tercihYapildiMi = true
-else
-    print("Puan yetersiz. Tekrar hazırlanmalısın.")
-    exit
+  // --- Döngü Yapısı: Yumurtaları Yeterince Çırpma ---
+  // Yumurtaların istenen kıvama gelmesi için belirli bir sayıda çırpılması gerekir.
+  DÖNGÜ (cirpmaSayaci < hedefCirpmaMiktari OLDUĞU SÜRECE)
+    yazdir "Yumurtaları çırp."
+    cirpmaSayaci = cirpmaSayaci + 1
+  BİTİR DÖNGÜ
+  yazdir "Yumurtalar yeterince çırpıldı ve köpürdü."
 
-// 5. Tercih yapıldı mı?
-if tercihYapildiMi == true then
-    print("Üniversite tercihleri yapıldı.")
-    // Kabul edilme durumu rastgele simüle edilebilir
-    kabulEdildiMi = true
-else
-    print("Tercih yapılmadı. Üniversiteye gidemezsin.")
-    exit
 
-// 6. Kabul durumu
-if kabulEdildiMi == true then
-    print("Tebrikler! Üniversiteye kabul edildin 🎉")
-    print("Üniversiteye gitmeye hazırlan...")
-else
-    print("Maalesef kabul edilmedin. Tekrar denemelisin.")
+  // --- 3. Aşama: Pişirmeye Hazırlık ---
+  yazdir "Ocağı orta ateşte aç."
+  yazdir "Tavaya bir parça tereyağı koy."
 
+  // --- Döngü Yapısı: Tavanın Isınmasını Bekleme ---
+  // Tereyağı eriyip köpürmeye başlayana kadar beklemek, tavanın doğru sıcaklığa geldiğini gösterir.
+  DÖNGÜ (tavaYeterinceSicakMi == HAYIR OLDUĞU SÜRECE)
+    EĞER (tereyağıEridiVeKopurduyse) İSE
+      tavaYeterinceSicakMi = EVET
+    DEĞİLSE
+      yazdir "Tavanın ısınması bekleniyor..."
+    BİTİR EĞER
+  BİTİR DÖNGÜ
+  yazdir "Tava pişirme için hazır."
+
+
+  // --- 4. Aşama: Pişirme ve Malzeme Ekleme ---
+  yazdir "Yumurta karışımını tavaya dök."
+
+  // --- Koşul Yapısı: İsteğe Bağlı Malzemeleri Ekleme ---
+  // Kullanıcının tercihlerine göre omlete malzemeler eklenir.
+  EĞER (sucukIsteniyorMu == EVET) İSE
+    yazdir "Sucukları ekle."
+  BİTİR EĞER
+
+  EĞER (mantarIsteniyorMu == EVET) İSE
+    yazdir "Mantarları ekle."
+  BİTİR EĞER
+
+
+  // --- Döngü Yapısı: Omletin Pişmesini Kontrol Etme ---
+  // Omletin altı katılaşıp üstü hafif sulu kalana kadar pişirme işlemi devam eder.
+  DÖNGÜ (omletPistiMi == HAYIR OLDUĞU SÜRECE)
+    yazdir "Omlet pişiriliyor..."
+    EĞER (omletinAltiKatilastiVeUstuHafifSuluysa) İSE
+      omletPistiMi = EVET
+    BİTİR EĞER
+  BİTİR DÖNGÜ
+  yazdir "Omletin altı pişti."
+
+
+  // --- Koşul Yapısı: Peynir Ekleme ---
+  // Peynir, en son erimesi için omlet katlanmadan hemen önce eklenir.
+  EĞER (peynirIsteniyorMu == EVET) İSE
+    yazdir "Rendelenmiş peyniri omletin bir yarısına serp."
+  BİTİR EĞER
+
+
+  // --- 5. Aşama: Servis ---
+  yazdir "Spatula ile omleti ikiye katla."
+  yazdir "30 saniye daha bekle."
+  yazdir "Omleti tabağa al."
+  yazdir "Mükemmel omlet servise hazır! Afiyet olsun."
+
+BİTİR
+
+Yazılım mühendisliği birinci sınıf ödevim için günlük bir işlem olan omlet yapımını modelleyen bir algoritma talep ettim. Talebim üzerine Gemini, bu süreci 
+adımlara ayırarak; yumurta çırpma gibi tekrarlı işlemleri döngülerle ve isteğe bağlı malzeme ekleme gibi tercihleri koşul yapılarıyla kontrol eden açık ve net bir 
+sözde kod (pseudocode) oluşturdu. Bu çalışma, gerçek hayattaki bir sürecin temel programlama mantığıyla nasıl modellenebileceğini göstermektedir.
