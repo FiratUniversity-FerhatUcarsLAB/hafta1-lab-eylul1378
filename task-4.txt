@@ -4,9 +4,9 @@ AD-SOYAD:Nihal Eylül İL
 Fonksiyon: BulHedefRenk(renkListesi, hedefRenk)
     Eğer renkListesi boyutu 1 ise:
         Eğer renkListesi[0] hedefRenk'e eşitse:
-            Dön: True
+            Dön: DOĞRU
         Değilse:
-            Dön: False
+            Dön: YANLIŞ
 
     Listeyi ikiye böl:
         solListe = renkListesi[0 .. n/2]
@@ -16,16 +16,16 @@ Fonksiyon: BulHedefRenk(renkListesi, hedefRenk)
         solSonuc = BulHedefRenk(solListe, hedefRenk)
         sagSonuc = BulHedefRenk(sagListe, hedefRenk)
 
-    Eğer solSonuc veya sagSonuc True ise:
-        Dön: True
+    Eğer solSonuc veya sagSonuc DOĞRU ise:
+        Dön:DOĞRU
 
     Tüm sol ve sağ renk kombinasyonlarını dene:
         Her renk1 in solListe:
             Her renk2 in sagListe:
                 karisim = Karistir(renk1, renk2)
                 Eğer karisim hedefRenk'e yeterince yakınsa:
-                    Dön: True
-                    Dön: False
+                    Dön: DOĞRU
+                    Dön: YANLIŞ
 
 Fonksiyon: Karistir(renk1, renk2)
     Renkler RGB formatında ise:
@@ -37,9 +37,9 @@ Fonksiyon: Karistir(renk1, renk2)
 Fonksiyon: YeterinceYakin(renkA, renkB, tolerans)
     fark = sqrt((A.R - B.R)^2 + (A.G - B.G)^2 + (A.B - B.B)^2)
     Eğer fark < tolerans ise:
-        Dön: True
+        Dön: DOĞRU
     Aksi halde:
-        Dön: False
+        Dön: YANLIŞ
 
 Bu bölümde, hedef bir rengi elde etmek için verilen renklerin karıştırılması problemi, Divide & Conquer (Böl ve Fethet) algoritik yaklaşımıyla ele alınmıştır. 
 Diyalogda, algoritmanın sözde kodu detaylı şekilde açıklanmış ve renk karıştırma işlemi RGB formatında tanımlanmıştır. Ayrıca, renklerin hedef renge olan yakınlığı 
