@@ -1,36 +1,45 @@
 Öğrenci No:250541001
 AD-SOYAD:Nihal Eylül İL
 
-// Başlangıç: Telefon rehberi verisini tanımla
-var rehberListesi = [
-    {"isim": "Zeynep", "numara": "0532..."},
-    {"isim": "Ahmet", "numara": "0505..."},
-    {"isim": "Mehmet", "numara": "0543..."},
-    {"isim": "Ayşe", "numara": "0551..."}
-]
+FONKSİYON NotlariSirala(notlarListesi):
 
-// Sıralama işlemi başlatılıyor
-print("Telefon rehberi alfabetik olarak sıralanıyor...")
+    // Listenin toplam eleman sayısını al
+    n = notlarListesi'nin eleman sayısı
 
-// 1. Alfabetik sıralama algoritması (örnek: Bubble Sort)
-for i from 0 to rehberListesi.length - 1 do
-    for j from 0 to rehberListesi.length - i - 2 do
-        if rehberListesi[j].isim > rehberListesi[j+1].isim then
-            // Yer değiştir
-            temp = rehberListesi[j]
-            rehberListesi[j] = rehberListesi[j+1]
-            rehberListesi[j+1] = temp
-        end if
-    end for
-end for
+    // Listenin başından sonuna doğru ilerleyen ana döngü
+    // Son elemanın zaten yerinde olacağı için n-1'e kadar gitmek yeterli
+    DÖNGÜ i = 0'dan n-2'ye kadar:
 
-// 2. Sıralanmış rehberi ekrana yazdır
-print("Sıralanmış Telefon Rehberi:")
-for kişi in rehberListesi do
-    print(kişi.isim + " - " + kişi.numara)
-end for
+        // O anki pozisyondaki notun en yüksek olduğunu varsayalım
+        enYuksekNotunIndeksi = i
 
-rehberListesi.sort(by isim in alfabetik sıra)
-Bu kısa ifade, yerleşik sıralama fonksiyonu olan dillerde (örneğin Python, JavaScript) doğrudan kullanılabilir
+        // Listenin geri kalanında daha yüksek bir not var mı diye kontrol et
+        // i+1'den başlayarak listenin sonuna kadar git
+        DÖNGÜ j = i + 1'den n-1'e kadar:
 
+            // Eğer j indeksindeki not, o ana kadar bulduğumuz en yüksek nottan daha büyükse
+            EĞER notlarListesi[j] > notlarListesi[enYuksekNotunIndeksi] ISE:
+                // Yeni en yüksek notun indeksini güncelle
+                enYuksekNotunIndeksi = j
+            SON EĞER
 
+        SON DÖNGÜ // İç döngünün sonu
+
+        // Döngü bittiğinde, taranan bölümdeki en yüksek notun yerini bulduk.
+        // Şimdi bu en yüksek notu, ana döngünün o anki pozisyonu (i) ile yer değiştir.
+        // (Eğer en yüksek not zaten doğru yerdeyse bir şey değişmez)
+        geciciDegisken = notlarListesi[i]
+        notlarListesi[i] = notlarListesi[enYuksekNotunIndeksi]
+        notlarListesi[enYuksekNotunIndeksi] = geciciDegisken
+
+    SON DÖNGÜ // Ana döngünün sonu
+
+    // Sıralanmış listeyi geri döndür
+    DÖNDÜR notlarListesi
+
+SON FONKSİYON
+
+Bu diyalogda, kullanıcı yapay zeka asistanından sınıf notlarını yüksekten düşüğe sıralayan bir algoritmanın sözde kodunu (pseudocode) net bir şekilde açıklamasını 
+istemiştir. Yapay zeka, bu talep üzerine anlaşılırlığı yüksek olan "Seçmeli Sıralama" (Selection Sort) algoritmasını temel alarak bir çözüm sunmuştur. Yanıt 
+olarak, algoritmanın çalışma mantığı, sözde kod gösterimi ve örnek bir not listesiyle adım adım nasıl çalıştığına dair somut bir uygulama açıklaması sağlanmıştır. 
+Bu sayede teorik algoritma, pratik bir örnekle desteklenerek kullanıcıya aktarılmıştır.
