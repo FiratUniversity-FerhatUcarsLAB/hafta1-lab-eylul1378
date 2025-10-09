@@ -1,3 +1,47 @@
 Öğrenci No:250541001
 AD-SOYAD:Nihal Eylül İL
 
+FONKSİYON Karatsuba(X, Y):
+
+    // 1. Taban Durumu: Sayılar yeterince küçükse (örn: tek basamaklı) normal çarpma yap ve dön.
+    // Bu, özyineli çağrıların durma noktasıdır.
+    EĞER (X < 10 VEYA Y < 10):
+        DÖNDÜR X * Y
+
+    // 2. Sayıların basamak sayısını hesapla (en büyüğüne göre)
+    n = max(X'in basamak sayısı, Y'nin basamak sayısı)
+    // Eğer n tek sayı ise, en yakın çift sayıya yuvarla
+    EĞER n tek sayı ise:
+        n = n + 1
+    
+    // Ortadan bölmek için basamak sayısı
+    m = n / 2
+
+    // 3. Bölme (Divide) Adımı: Sayıları a,b,c,d parçalarına ayır
+    // 10^m'e bölerek ilk yarıyı (a,c), modunu alarak ikinci yarıyı (b,d) buluruz.
+    a = X / 10^m
+    b = X % 10^m
+    c = Y / 10^m
+    d = Y % 10^m
+
+    // 4. Fethetme (Conquer) Adımı: 3 özyineli çağrı yap
+    z1 = Karatsuba(a, c)
+    z2 = Karatsuba(b, d)
+    z3 = Karatsuba(a + b, c + d)
+    
+    // Ara terimi hesapla
+    araTerim = z3 - z1 - z2
+
+    // 5. Birleştirme (Combine) Adımı: Sonucu formüle göre birleştir
+    // 10^n ve 10^m ile çarpmak, sola basamak kaydırmaya eşdeğerdir.
+    sonuc = (z1 * 10^(2*m)) + (araTerim * 10^m) + z2
+
+    DÖNDÜR sonuc
+
+SON FONKSİYON
+
+Konuşmamızın ilgili bölümü, iki büyük sayıyı çarpmak için "Böl ve Fethet" yaklaşımını kullanan Karatsuba algoritmasının istenmesiyle başladı. Bu talep üzerine, 
+algoritmanın sayıları nasıl ikiye böldüğü, dört çarpma işlemini zekice üçe indirdiği ve sonuçları nasıl birleştirdiği sözde kod ve örnekle açıklandı. Ardından, 
+isteğiniz üzerine "Böl ve Fethet" paradigmasının kendisi genel olarak ele alındı. Bu son bölümde ise yaklaşımın üç temel adımı (Böl, Fethet, Birleştir) 
+tanımlanarak Merge Sort ve Binary Search gibi diğer algoritmik örneklerle konu pekiştirildi.
+
