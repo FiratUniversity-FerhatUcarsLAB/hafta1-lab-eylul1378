@@ -39,6 +39,8 @@ FONKSİYON NotlariSirala(notlarListesi):
 
 SON FONKSİYON
 
+      =YAPAY ZEKA KONUŞMALARI=
+
 Bu diyalogda, kullanıcı yapay zeka asistanından sınıf notlarını yüksekten düşüğe sıralayan bir algoritmanın sözde kodunu (pseudocode) net bir şekilde açıklamasını 
 istemiştir. Yapay zeka, bu talep üzerine anlaşılırlığı yüksek olan "Seçmeli Sıralama" (Selection Sort) algoritmasını temel alarak bir çözüm sunmuştur. Yanıt 
 olarak, algoritmanın çalışma mantığı, sözde kod gösterimi ve örnek bir not listesiyle adım adım nasıl çalıştığına dair somut bir uygulama açıklaması sağlanmıştır. 
