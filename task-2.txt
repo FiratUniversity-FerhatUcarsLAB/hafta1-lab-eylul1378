@@ -82,6 +82,7 @@ BİTİR FONKSİYON
 // tahtayı tarayarak ilgili boş kareleri bulur ve koordinatlarını döndürür.
 
     =YAPAY ZEKA KONUŞMALARI=
+
 Ödevim için, Tic-Tac-Toe oyununda karar verme mantığını ve rakibin hamlelerini öngörerek engelleme stratejisini içeren bir algoritma talep ettim. Gemini, bu talebe 
 yanıt olarak, belirli bir öncelik sırasıyla çalışan bir sözde kod hazırladı. Bu algoritmaya göre bilgisayar; önce kendi kazanma hamlesini arıyor, bulamazsa rakibin 
 kazanma hamlesini engelliyor ve son olarak da merkez gibi stratejik konumları tercih ederek en optimal hamleyi yapıyor.
