@@ -86,6 +86,8 @@ BAŞLA
 
 BİTİR
 
+   =YAPAY ZEKA KONUŞMALARI=
+
 Yazılım mühendisliği birinci sınıf ödevim için günlük bir işlem olan omlet yapımını modelleyen bir algoritma talep ettim. Talebim üzerine Gemini, bu süreci 
 adımlara ayırarak; yumurta çırpma gibi tekrarlı işlemleri döngülerle ve isteğe bağlı malzeme ekleme gibi tercihleri koşul yapılarıyla kontrol eden açık ve net bir 
 sözde kod (pseudocode) oluşturdu. Bu çalışma, gerçek hayattaki bir sürecin temel programlama mantığıyla nasıl modellenebileceğini göstermektedir.
