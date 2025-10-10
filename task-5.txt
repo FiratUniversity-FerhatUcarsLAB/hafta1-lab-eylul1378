@@ -1,47 +1,110 @@
 Öğrenci No:250541001
 AD-SOYAD:Nihal Eylül İL
 
-Fonksiyon: ViralOlmaAlgoritmasi(içerik)
-    Eğer içerik duygusal, şaşırtıcı veya eğlenceli değilse:
-        Dön: "Düşük viral potansiyel"
+FONKSIYON IdealKahveDemle(DemlemeYontemi, KahveMiktari_gr, SuKahveOrani, IstenenSuSicakligi_C):
 
-    hedefKitle = BelirleHedefKitle(içerik)
-    uygunPlatformlar = SeçPlatformlar(hedefKitle)
+    // --- 1. HAZIRLIK AŞAMASI ---
 
-    Zamanlama = EnIyiPaylaşımZamanı(uygunPlatformlar)
-    paylaşım = Paylaş(içerik, uygunPlatformlar, Zamanlama)
+    // 1.1. Hesaplamaları yap
+    HedefSuMiktari_ml = KahveMiktari_gr * SuKahveOrani
 
-    etkileşim = TakipEtkileşim(payılaşım)
+    // 1.2. KOŞUL: Demleme yöntemine göre öğütme boyutunu belirle
+    EĞER DemlemeYontemi == "V60" VEYA DemlemeYontemi == "Chemex":
+        OgütmeBoyutu = "Orta"
+    DEĞİLSE EĞER DemlemeYontemi == "French Press":
+        OgütmeBoyutu = "Kalın"
+    DEĞİLSE EĞER DemlemeYontemi == "Aeropress":
+        OgütmeBoyutu = "İnce"
+    DEĞİLSE:
+        YAZDIR("Hata: Bilinmeyen demleme yöntemi.")
+        ÇIKIŞ YAP
+    SON EĞER
 
-    Eğer etkileşim > viralEşik:
-        Dön: "İçerik viral oldu!"
-    Aksi halde:
-        içerik = OptimizeEt(içerik)
-        Dön: ViralOlmaAlgoritmasi(içerik)
+    // 1.3. Malzemeleri hazırla
+    YAZDIR(KahveMiktari_gr + " gram kahveyi " + OgütmeBoyutu + " boyutunda öğüt.")
+    YAZDIR("Suyu ısıtmaya başla.")
 
-Fonksiyon: BelirleHedefKitle(içerik)
-    içerikteki anahtar kelimelere göre yaş, ilgi alanı, bölge analizi yap
-    Dön: hedefKitle
+    // 1.4. DÖNGÜ: Suyun istenen sıcaklığa gelmesini bekle
+    MevcutSuSicakligi_C = SuIsiticininSicakliginiOlc()
+    SÜRECE MevcutSuSicakligi_C < IstenenSuSicakligi_C:
+        YAZDIR("Su ısınıyor... Mevcut sıcaklık: " + MevcutSuSicakligi_C + "°C")
+        BEKLE(5 saniye) // Her 5 saniyede bir kontrol et
+        MevcutSuSicakligi_C = SuIsiticininSicakliginiOlc()
+    SON DÖNGÜ
+    YAZDIR("Su hazır! Sıcaklık: " + MevcutSuSicakligi_C + "°C")
 
-Fonksiyon: SeçPlatformlar(hedefKitle)
-    Eğer hedefKitle gençse:
-        Dön: ["TikTok", "Instagram"]
-    Eğer profesyonel kitleyse:
-        Dön: ["LinkedIn", "X"]
-    Aksi halde:
-        Dön: ["Facebook", "YouTube"]
+    // 1.5. Ekipmanı önceden ısıt ve kahveyi ekle
+    YAZDIR("Demleme ekipmanını ve bardağı sıcak su ile ısıt.")
+    YAZDIR("Öğütülmüş kahveyi demleyiciye koy.")
 
-Fonksiyon: EnIyiPaylaşımZamanı(platformlar)
-    Her platform için en yüksek etkileşim saatlerini analiz et
-    Dön: zamanDilimi
 
-Fonksiyon: TakipEtkileşim(payılaşım)
-    Beğeni, yorum, paylaşım, kaydetme gibi metrikleri topla
-    Dön: etkileşimSkoru
+    // --- 2. DEMLEME AŞAMASI ---
 
-Fonksiyon: OptimizeEt(içerik)
-    Başlık, görsel, etiket, açıklama gibi unsurları yeniden düzenle
-    Dön: yeniİçerik
+    GecenSure_sn = 0
+    EklenenSuMiktari_ml = 0
 
-Bu algoritma, içeriğin duygusal etkisini, hedef kitlesini, doğru platformu ve zamanlamayı dikkate alarak viral olma potansiyelini artırmayı hedefler. Etkileşim 
-yeterli değilse içerik optimize edilerek tekrar denenir — tıpkı gerçek dünyadaki sosyal medya stratejileri gibi!
+    // 2.1. KOŞUL: Demleme yöntemine özel demleme sürecini başlat
+    EĞER DemlemeYontemi == "V60":
+        // V60 için aşamalı döküş süreci
+        YAZDIR("V60 demleme süreci başladı.")
+
+        // A. Ön Demleme (Blooming)
+        OnDemlemeSuyu_ml = KahveMiktari_gr * 2
+        YAZDIR(OnDemlemeSuyu_ml + " ml su dökerek ön demlemeyi başlat.")
+        EklenenSuMiktari_ml = EklenenSuMiktari_ml + OnDemlemeSuyu_ml
+        
+        // B. Ön Demleme Beklemesi (Döngü)
+        SÜRECE GecenSure_sn < 45:
+            YAZDIR("Ön demleme için bekleniyor... Süre: " + GecenSure_sn + " sn")
+            BEKLE(1 saniye)
+            GecenSure_sn = GecenSure_sn + 1
+        SON DÖNGÜ
+
+        // C. Ana Döküş (Döngü ve Koşul)
+        YAZDIR("Ana döküşe başlanıyor...")
+        SÜRECE EklenenSuMiktari_ml < HedefSuMiktari_ml:
+            // Bu döngü, hedeflenen su miktarına ulaşana kadar devam eder.
+            // Döküşleri yavaş ve kontrollü yapmak için küçük beklemeler içerir.
+            YAZDIR("Dairesel hareketlerle 50 ml su ekleniyor...")
+            EklenenSuMiktari_ml = EklenenSuMiktari_ml + 50
+            YAZDIR("Toplam eklenen su: " + EklenenSuMiktari_ml + " ml")
+            BEKLE(10 saniye) // Döküşler arasında bekle
+            GecenSure_sn = GecenSure_sn + 10
+        SON DÖNGÜ
+
+        YAZDIR("Tüm su eklendi. Süzülme bekleniyor.")
+
+    DEĞİLSE EĞER DemlemeYontemi == "French Press":
+        // French Press için tek seferde dökme ve bekleme süreci
+        YAZDIR("French Press demleme süreci başladı.")
+
+        // A. Suyu Tek Seferde Dök
+        YAZDIR(HedefSuMiktari_ml + " ml suyun tamamını kahvenin üzerine dök.")
+        EklenenSuMiktari_ml = HedefSuMiktari_ml
+        YAZDIR("Kahveyi bir kaşıkla karıştır ve kapağını kapat.")
+
+        // B. Demlenme Süresi (Döngü)
+        HedefDemlemeSuresi_sn = 240 // 4 dakika
+        SÜRECE GecenSure_sn < HedefDemlemeSuresi_sn:
+            YAZDIR("Demleniyor... Kalan süre: " + (HedefDemlemeSuresi_sn - GecenSure_sn) + " sn")
+            BEKLE(1 saniye)
+            GecenSure_sn = GecenSure_sn + 1
+        SON DÖNGÜ
+
+        // C. Filtreyi İt
+        YAZDIR("Demleme süresi doldu. Pistonu yavaşça aşağı it.")
+    SON EĞER
+
+
+    // --- 3. SONUÇ AŞAMASI ---
+
+    YAZDIR("Kahvenizi bardağa doldurun.")
+    YAZDIR("İdeal kahveniz hazır. Afiyet olsun!")
+
+SON FONKSIYON
+
+     =YAPAY ZEKA KONUŞMALARI=
+
+Kullanıcı Talebi: Koşul ve döngü içeren "ideal kahve demleme" sözde kodu istendi.
+
+AI Yanıtı: Demleme yöntemine göre farklı adımlar içeren koşullu (EĞER...) ve demleme süresini yöneten döngüsel (SÜRECE...) mantığa sahip, parametrik bir sözde kod sağlandı.
