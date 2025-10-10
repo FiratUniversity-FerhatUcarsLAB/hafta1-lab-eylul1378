@@ -1,65 +1,90 @@
 Öğrenci No:250541001
 AD-SOYAD:Nihal Eylül İL
 
-// Ana fonksiyon: Bir grup insan ve bir pasta parçası alır.
-FONKSİYON AdilPaylasim(kisilerListesi, pasta):
+FONKSIYON AdilPaylasim(Kisiler_Listesi, Pasta):
+    // Kişi sayısını al
+    N = Kisiler_Listesi'nin eleman sayısı
 
-    // 1. Fethet Adımı (Temel Durum):
-    // Eğer listede sadece bir kişi varsa, pastanın tamamını o alır.
-    EĞER kisilerListesi'nin eleman sayısı == 1 ISE:
-        tekKalanKisi = kisilerListesi[0]
-        tekKalanKisi.payi = pasta
-        DÖN // Fonksiyonu bitir.
-    
-    // 2. Böl Adımı (İnsanları ve Pastayı Bölme):
-    
-    // Kişi listesini iki alt gruba ayır.
-    N = kisilerListesi'nin eleman sayısı
-    N1 = TAVAN(N / 2) // İlk grubun eleman sayısı
-    
-    grup1 = kisilerListesi'nin ilk N1 kişisi
-    grup2 = kisilerListesi'nin geri kalan N - N1 kişisi
+    // -----------------------------------------------------------------
+    // TEMEL DURUM 1: Tek kişi varsa pastanın tamamını alır.
+    // -----------------------------------------------------------------
+    EĞER N == 1:
+        paylar = { Kisiler_Listesi[0] : Pasta }
+        DÖNDÜR paylar
 
-    // Şimdi pastayı bu iki grup arasında adil bir şekilde böl.
-    // Bunun için "bir grup keser, diğeri seçer" yöntemi kullanılır.
-    // Bu ara fonksiyon, grup1 ve grup2'nin temsilcileri arasında adil bir bölme yapar.
-    (pastaParcasi1, pastaParcasi2) = GruplarArasiAdilBolme(grup1, grup2, pasta)
-    
-    // 3. Fethet Adımı (Özyineli Çağrılar):
-    
-    // Grup 1, kendisine düşen pastaParcasi1'i kendi içinde paylaşır.
-    AdilPaylasim(grup1, pastaParcasi1)
-    
-    // Grup 2, kendisine düşen pastaParcasi2'yi kendi içinde paylaşır.
-    AdilPaylasim(grup2, pastaParcasi2)
+    // -----------------------------------------------------------------
+    // TEMEL DURUM 2: İki kişi varsa "Kes ve Seç" yöntemi uygulanır.
+    // -----------------------------------------------------------------
+    EĞER N == 2:
+        Kesen_Kisi = Kisiler_Listesi[0]
+        Secen_Kisi = Kisiler_Listesi[1]
 
-SON FONKSİYON
+        // Kesen kişi pastayı kendine göre 2 eşit parçaya böler
+        (Parca_A, Parca_B) = Kesen_Kisi.KendiDegerineGoreEsitKes(Pasta, 2)
+
+        // Seçen kişi bu iki parçadan daha değerli bulduğunu seçer
+        Secilen_Parca = Secen_Kisi.EnDegerliParcayiSec([Parca_A, Parca_B])
+
+        EĞER Secilen_Parca == Parca_A:
+            paylar = { Secen_Kisi : Parca_A, Kesen_Kisi : Parca_B }
+        DEĞİLSE:
+            paylar = { Secen_Kisi : Parca_B, Kesen_Kisi : Parca_A }
+
+        DÖNDÜR paylar
+
+    // -----------------------------------------------------------------
+    // YİNELEMELİ ADIM: Kişi sayısı 2'den fazlaysa
+    // -----------------------------------------------------------------
+    EĞER N > 2:
+        // Adım 1: Gruptan bir kişiyi "Seçici", diğerlerini "Bölenler" olarak ayır.
+        Secici = Kisiler_Listesi'nin son elemanı
+        Bolenler = Kisiler_Listesi'nin ilk N-1 elemanı
+
+        // Adım 2: (N-1) kişilik "Bölenler" grubu için fonksiyonu özyinelemeli olarak çağır.
+        // Bu grup, pastanın tamamını kendi aralarında adil şekilde paylaşır.
+        Gecici_Paylar = AdilPaylasim(Bolenler, Pasta)
+
+        // Adım 3: "Seçici"nin payını belirlemek için birleştirme adımı.
+        Nihai_Paylar = yeni bir boş sözlük oluştur
+        Secici_icin_toplanan_parcalar = boş bir liste oluştur
+
+        // Her bir bölen, kendi geçici payını N eşit parçaya böler.
+        HER Bolen in Bolenler:
+            // Bölen'in özyinelemeli çağrıdan aldığı pay
+            Bolenin_gecici_payi = Gecici_Paylar[Bolen]
+
+            // Kendi payını, kendine göre N eşit alt parçaya böler
+            Alt_Parcalar = Bolen.KendiDegerineGoreEsitKes(Bolenin_gecici_payi, N)
+
+            // "Seçici", bu alt parçalardan en değerli bulduğunu seçer
+            Secicinin_sectigi_parca = Secici.EnDegerliParcayiSec(Alt_Parcalar)
+            
+            // Seçilen parçayı "Seçici"nin koleksiyonuna ekle
+            Secici_icin_toplanan_parcalar.ekle(Secicinin_sectigi_parca)
+
+            // Geriye kalan N-1 alt parçayı birleştirerek "Bölen"in nihai payını oluştur
+            Alt_Parcalar.kaldır(Secicinin_sectigi_parca)
+            Nihai_Paylar[Bolen] = Alt_Parcalar.birleştir()
+
+        // "Seçici"nin farklı bölenlerden topladığı tüm küçük parçaları birleştir.
+        Nihai_Paylar[Secici] = Secici_icin_toplanan_parcalar.birleştir()
+        
+        // Herkesin nihai payını içeren sözlüğü döndür.
+        DÖNDÜR Nihai_Paylar
+
+      =YAPAY ZEKA KONUŞMALARI=
+
+1. Etkileşim:
+
+Kullanıcı Talebi: N kişi için "Böl ve Fethet" yaklaşımıyla adil pasta paylaşımı algoritmasının açıklanması.
+
+AI Yanıtının Konusu: Problemi N kişiden (N-1) kişiye indirgeyen Yinelemeli Tek Seçici (Recursive Lone Chooser) algoritması adımları, mantığı ve örnekle açıklandı.
+
+2. Etkileşim:
+
+Kullanıcı Talebi: Açıklanan algoritmanın sözde kodunun (pseudocode) yazılması.
+
+AI Yanıtının Konusu: Algoritmanın temel ve yinelemeli adımlarını içeren detaylı bir sözde kod sunuldu.
 
 
-// Yardımcı fonksiyon: Pastayı iki grup arasında orantılı böler.
-FONKSİYON GruplarArasiAdilBolme(grup1, grup2, tumPasta):
-    // Grup1'in bir temsilcisi (örn: ilk üyesi) pastayı keser.
-    // Kendi değerlendirmesine göre pastayı P1 ve P2 olarak ikiye ayırır.
-    // P1'in değeri, grup1'in alması gereken oran olan (grup1.boyut / toplamKisiSayisi) kadardır.
-    temsilci1 = grup1[0]
-    (P1, P2) = temsilci1.KendiDegerineGoreKes(tumPasta, grup1.boyut / (grup1.boyut + grup2.boyut))
-
-    // Grup2'nin temsilcisi bu iki parçadan daha değerli bulduğunu seçer.
-    temsilci2 = grup2[0]
-    EĞER temsilci2.Degerlendir(P1) > temsilci2.Degerlendir(P2) ISE:
-        // Eğer grup2, grup1 için kesilen parçayı daha değerli bulursa,
-        // grupların payları değişir. Bu, adil bir seçim olmasını sağlar.
-        grup1inPayi = P2
-        grup2ninPayi = P1
-    ELSE:
-        grup1inPayi = P1
-        grup2ninPayi = P2
     
-    DÖNDÜR (grup1inPayi, grup2ninPayi)
-    
-SON FONKSİYON
-
-Kullanıcı, N kişi için adil pasta paylaşımı probleminin "Böl ve Fethet" yaklaşımı kullanılarak çözülmesini ve bu çözümün sözde kodunun yazılmasını talep etti. 
-Yanıt olarak, N kişilik grubun özyineli bir şekilde iki alt gruba ayrıldığı, pastanın öncelikle bu iki grup arasında adil olarak bölündüğü ve ardından her grubun 
-kendi payını yine aynı algoritmayla kendi içinde paylaştığı bir yöntem açıklandı. Bu teorik çözüm, algoritmanın adımlarını gösteren detaylı bir sözde kod ve 4 
-kişilik bir senaryo üzerinden çalışan somut bir örnekle desteklenerek sunuldu.
